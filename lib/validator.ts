@@ -5,7 +5,7 @@ export const userSchema = z.object({
     deviceId: z.string(),
 });
 
-export const getUserSchema = z.object({
+export const IdSchema = z.object({
     deviceId: z.string(),
 });
 
