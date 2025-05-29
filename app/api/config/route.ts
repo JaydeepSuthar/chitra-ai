@@ -26,6 +26,7 @@ export async function GET(_: Request) {
             { status: 200 }
         );
     } catch (error) {
+        console.error("Error fetching configuration:", error);
         return Response.json(
             { message: "Unable to process request at the moment." },
             { status: 400 }

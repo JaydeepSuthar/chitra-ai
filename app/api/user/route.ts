@@ -38,7 +38,7 @@ export async function POST(req: Request) {
             { status: 200 }
         );
     } catch (error) {
-        console.error(error);
+        console.error("Error fetching user:", error);
         return Response.json(
             { message: "Unable to process request at the moment." },
             { status: 400 }

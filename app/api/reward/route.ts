@@ -50,6 +50,7 @@ export async function POST(req: Request) {
             { status: 200 }
         );
     } catch (error) {
+        console.error("Error claiming reward:", error);
         return Response.json(
             { message: "Unable to process request at the moment." },
             { status: 400 }

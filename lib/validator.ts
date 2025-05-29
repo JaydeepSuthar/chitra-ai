@@ -1,8 +1,12 @@
 import z from "zod";
 
 export const userSchema = z.object({
-    email: z.string(),
-    deviceId: z.string(),
+    email: z.string().email(),
+    socialId: z.string().min(1),
+    loginType: z.enum(["Google", "Apple"]),
+    deviceType: z.string().min(1),
+    deviceId: z.string().min(1),
+    fcmToken: z.string().optional(),
 });
 
 export const IdSchema = z.object({
