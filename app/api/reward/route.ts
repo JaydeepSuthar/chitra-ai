@@ -16,11 +16,33 @@ export async function POST(req: Request) {
             );
         }
 
+        const [user] = await db
+            .select()
+            .from(schema.users)
+            .where(eq(schema.users.deviceId, data.deviceId));
+
+        if (!user) {
+            return Response.json(
+                { message: "User not found" },
+                { status: 404 }
+            );
+        }
+
+        if (user.isDeleted) {
+            return Response.json(
+                { message: "User has been deleted" },
+                { status: 400 }
+            );
+        }
+
         const coin = Math.floor(Math.random() * (10 - 3 + 1) + 3);
 
         await db
             .update(schema.users)
-            .set({ coin })
+            .set({
+                coin: user.coin + coin,
+                noOfAdsWatch: user.noOfAdsWatch + 1,
+            })
             .where(eq(schema.users.deviceId, data.deviceId));
 
         return Response.json(
