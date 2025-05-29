@@ -1,0 +1,82 @@
+import env from "@/lib/env";
+import imageToBase64 from "./image-to-base64";
+
+const commonOptions = {
+  model: "stable-diffusion-xl-v1-0",
+  negative_prompt: "Disfigured, cartoon, blurry, nude",
+  // negative_prompt: `
+  //   (worst quality, low quality, normal quality:2),
+  //   blurry, out of focus, pixelated, grainy, noisy, jpeg artifacts,
+  //   distorted, malformed, mutated, extra limbs, extra fingers,
+  //   bad anatomy, bad proportions, disfigured, deformed, broken limbs,
+  //   watermark, text, signature, logo, username, banner,
+  //   cropped, cut off, out of frame, duplicate, clone,
+  //   poorly drawn hands, poorly drawn face, unnatural body,
+  //   color aberration, distorted eyes, wrong perspective,
+  //   unattractive, boring background, draft, render artifacts
+  // `.trim(),
+  // width: 768,
+  // height: 768,
+  steps: 40,
+  guidance: 7.5,
+  output_format: 'jpeg',
+  scheduler: 'euler',
+  response_format: 'url'
+};
+
+export async function textToImage(prompt: string, height?: number, width?: number) {
+  const url = 'https://api.getimg.ai/v1/stable-diffusion-xl/text-to-image';
+
+  const imageGenOptions = {
+    ...commonOptions,
+    width: width ?? 768,
+    height: height ?? 768,
+    prompt
+  };
+
+  const options = {
+    method: 'POST',
+    headers: { accept: 'application/json', 'content-type': 'application/json', Authorization: `Bearer ${env.GETIMAGE_AI_TOKEN}` },
+    body: JSON.stringify(imageGenOptions)
+  };
+
+  console.log(options.headers)
+
+  try {
+    const response = await fetch(url, options);
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+
+  return null;
+}
+
+export async function imageToImage(prompt: string, image: string, height?: number, width?: number) {
+  const url = 'https://api.getimg.ai/v1/stable-diffusion-xl/image-to-image';
+
+  const imageGenOptions = {
+    ...commonOptions,
+    // width: width ?? 768,
+    // height: height ?? 768,
+    prompt: 'A serene, whimsical landscape in the style of Studio Ghibli, lush green forests with softly glowing sunlight filtering through the trees, a small cottage with moss-covered roof nestled among giant mushrooms, delicate hand-painted textures, vibrant yet soft color palette, dreamy atmosphere, anime-style character with expressive eyes exploring the scenery, cinematic composition, highly detailed, fantasy-inspired environment, warm lighting, magical realism',
+    image,
+  };
+
+  const options = {
+    method: 'POST',
+    headers: { accept: 'application/json', 'content-type': 'application/json', Authorization: `Bearer ${env.GETIMAGE_AI_TOKEN}` },
+    body: JSON.stringify(imageGenOptions)
+  };
+
+  try {
+    const response = await fetch(url, options);
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+
+  return null;
+}
