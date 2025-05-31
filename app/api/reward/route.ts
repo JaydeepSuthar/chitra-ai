@@ -2,24 +2,19 @@ import { IdSchema } from "@/lib/validator";
 import db from "@/db";
 import * as schema from "@/db/schema";
 import { eq } from "drizzle-orm";
+import { auth } from "@/lib/auth";
 
 export async function POST(req: Request) {
     try {
-        const rawData = await req.json();
+        const authUser = await auth(req);
 
-        const { success, data, error } = IdSchema.safeParse(rawData);
-
-        if (!success) {
-            return Response.json(
-                { message: "Validation failed" },
-                { status: 422 }
-            );
-        }
+        if (!authUser)
+            return Response.json({ message: 'Authentication required', data: null, statusCode: 401 }, { status: 401 });
 
         const [user] = await db
             .select()
             .from(schema.users)
-            .where(eq(schema.users.deviceId, data.deviceId));
+            .where(eq(schema.users.id, authUser.id));
 
         if (!user) {
             return Response.json(
@@ -43,16 +38,16 @@ export async function POST(req: Request) {
                 credits: user.credits + randomCredits,
                 noOfAdsWatch: user.noOfAdsWatch + 1,
             })
-            .where(eq(schema.users.deviceId, data.deviceId));
+            .where(eq(schema.users.id, authUser.id));
 
         return Response.json(
-            { message: "Reward claimed successfully", data: randomCredits },
+            { message: "Reward claimed successfully", data: randomCredits, statusCode: 200 },
             { status: 200 }
         );
     } catch (error) {
         console.error("Error claiming reward:", error);
         return Response.json(
-            { message: "Unable to process request at the moment." },
+            { message: "Unable to process request at the moment.", data: null, statusCode: 400 },
             { status: 400 }
         );
     }
