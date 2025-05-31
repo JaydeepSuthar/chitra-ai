@@ -1,22 +1,10 @@
 import env from "@/lib/env";
 import imageToBase64 from "./image-to-base64";
+import type { IGetImgResponseType } from "@/types";
 
 const commonOptions = {
   model: "stable-diffusion-xl-v1-0",
   negative_prompt: "Disfigured, cartoon, blurry, nude",
-  // negative_prompt: `
-  //   (worst quality, low quality, normal quality:2),
-  //   blurry, out of focus, pixelated, grainy, noisy, jpeg artifacts,
-  //   distorted, malformed, mutated, extra limbs, extra fingers,
-  //   bad anatomy, bad proportions, disfigured, deformed, broken limbs,
-  //   watermark, text, signature, logo, username, banner,
-  //   cropped, cut off, out of frame, duplicate, clone,
-  //   poorly drawn hands, poorly drawn face, unnatural body,
-  //   color aberration, distorted eyes, wrong perspective,
-  //   unattractive, boring background, draft, render artifacts
-  // `.trim(),
-  // width: 768,
-  // height: 768,
   steps: 40,
   guidance: 7.5,
   output_format: 'jpeg',
@@ -24,7 +12,7 @@ const commonOptions = {
   response_format: 'url'
 };
 
-export async function textToImage(prompt: string, height?: number, width?: number) {
+export async function textToImage(prompt: string, height: number, width: number) {
   const url = 'https://api.getimg.ai/v1/stable-diffusion-xl/text-to-image';
 
   const imageGenOptions = {
@@ -45,7 +33,7 @@ export async function textToImage(prompt: string, height?: number, width?: numbe
   try {
     const response = await fetch(url, options);
     const data = await response.json();
-    return data;
+    return data as IGetImgResponseType;
   } catch (error) {
     console.log(error);
   }
@@ -53,7 +41,7 @@ export async function textToImage(prompt: string, height?: number, width?: numbe
   return null;
 }
 
-export async function imageToImage(prompt: string, image: string, height?: number, width?: number) {
+export async function imageToImage(prompt: string, image: string, height: number, width: number) {
   const url = 'https://api.getimg.ai/v1/stable-diffusion-xl/image-to-image';
 
   const imageGenOptions = {
@@ -73,7 +61,7 @@ export async function imageToImage(prompt: string, image: string, height?: numbe
   try {
     const response = await fetch(url, options);
     const data = await response.json();
-    return data;
+    return data as IGetImgResponseType;
   } catch (error) {
     console.log(error);
   }

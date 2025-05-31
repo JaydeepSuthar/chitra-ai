@@ -1,5 +1,6 @@
 import db from "@/db";
 import * as schema from "@/db/schema";
+import { generateToken } from "@/lib/jwt";
 import { userSchema } from "@/lib/validator";
 import { eq } from "drizzle-orm";
 
@@ -10,19 +11,8 @@ export async function POST(req: Request) {
 
         if (!success)
             return Response.json(
-                { message: "Validation failed" },
+                { message: "Validation failed", data: null, statusCode: 422 },
                 { status: 422 }
-            );
-
-        const [isDeviceExists] = await db
-            .select()
-            .from(schema.users)
-            .where(eq(schema.users.deviceId, data.deviceId));
-
-        if (isDeviceExists)
-            return Response.json(
-                { message: "User with same device already exists" },
-                { status: 400 }
             );
 
         const [isUserExists] = await db
@@ -30,22 +20,29 @@ export async function POST(req: Request) {
             .from(schema.users)
             .where(eq(schema.users.email, data.email));
 
-        if (isUserExists)
-            return Response.json(
-                { message: "User with same email already exists" },
-                { status: 400 }
-            );
+        if (isUserExists) {
+            const accessToken = generateToken(isUserExists);
+            const refreshToken = generateToken(isUserExists);
 
-        const user = await db.insert(schema.users).values(data).returning();
+            return Response.json(
+                { message: "Welcome to Chitra AI", data: { ...isUserExists, accessToken, refreshToken }, statusCode: 200 },
+                { status: 200 }
+            );
+        }
+
+        const [user] = await db.insert(schema.users).values(data).returning();
+
+        const accessToken = generateToken(user);
+        const refreshToken = generateToken(user);
 
         return Response.json(
-            { message: "Welcome to Chitra AI", data: user },
+            { message: "Welcome to Chitra AI", data: { ...user, accessToken, refreshToken }, statusCode: 200 },
             { status: 200 }
         );
     } catch (error) {
         console.log(error);
         return Response.json(
-            { message: "Unable to process request at the moment." },
+            { message: "Unable to process request at the moment.", data: null, statusCode: 400 },
             { status: 400 }
         );
     }

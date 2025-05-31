@@ -1,7 +1,8 @@
 import db from "@/db";
 import * as schema from "@/db/schema";
+import { auth } from "@/lib/auth";
 import { IdSchema } from "@/lib/validator";
-import { eq } from "drizzle-orm";
+import { eq, sql } from "drizzle-orm";
 
 export async function POST(req: Request) {
     try {
@@ -43,5 +44,45 @@ export async function POST(req: Request) {
             { message: "Unable to process request at the moment." },
             { status: 400 }
         );
+    }
+}
+
+export async function GET(req: Request) {
+    try {
+        const authUser = await auth(req);
+
+        if (!authUser)
+            return Response.json({ message: 'Authentication required', data: null, statusCode: 400 }, { status: 400 });
+
+        const [user] = await db.select().from(schema.users).where(eq(schema.users.id, authUser.id));
+
+        if (!user)
+            return Response.json({ message: 'User not found', data: null, statusCode: 404 }, { status: 404 });
+
+        return Response.json({ message: 'User details', data: user, statusCode: 200 }, { status: 200 });
+    } catch (error) {
+        console.error("Unable to get user details:", error);
+        return Response.json({ message: "Unable to process request at the moment.", data: null, statusCode: 400 }, { status: 400 });
+    }
+}
+
+export async function DELETE(req: Request) {
+    try {
+        const authUser = await auth(req);
+
+        if (!authUser)
+            return Response.json({ message: 'Authentication required', data: null, statusCode: 400 }, { status: 400 });
+
+        const [user] = await db.select().from(schema.users).where(eq(schema.users.id, authUser.id));
+
+        if (!user)
+            return Response.json({ message: 'User not found', data: null, statusCode: 404 }, { status: 404 });
+
+        await db.update(schema.users).set({ isDeleted: true, deletedAt: sql`now()` });
+
+        return Response.json({ message: 'User deleted successfully', data: null, statusCode: 200 }, { status: 200 });
+    } catch (error) {
+        console.error("Error deleting user:", error);
+        return Response.json({ message: "Unable to process request at the moment." }, { status: 400 });
     }
 }
