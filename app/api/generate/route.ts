@@ -54,11 +54,9 @@ export async function POST(req: Request) {
     if (model === 'text-to-image')
       imageResponse = await textToImage(data.prompt, height, width);
     else if (model === 'image-to-image' && data.image)
-      imageResponse = await imageToImage(data.prompt, data.image, height, width);
+      imageResponse = await imageToImage(data.prompt, data.image);
     else
       throw new Error("No model selected");
-
-    console.log(imageResponse);
 
     if (imageResponse === null)
       throw new Error("image response null");
