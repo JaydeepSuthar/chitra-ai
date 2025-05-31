@@ -35,18 +35,18 @@ export async function POST(req: Request) {
             );
         }
 
-        const coin = Math.floor(Math.random() * (10 - 3 + 1) + 3);
+        const randomCredits = Math.floor(Math.random() * (10 - 3 + 1) + 3);
 
         await db
             .update(schema.users)
             .set({
-                coin: user.coin + coin,
+                credits: user.credits + randomCredits,
                 noOfAdsWatch: user.noOfAdsWatch + 1,
             })
             .where(eq(schema.users.deviceId, data.deviceId));
 
         return Response.json(
-            { message: "Reward claimed successfully", data: coin },
+            { message: "Reward claimed successfully", data: randomCredits },
             { status: 200 }
         );
     } catch (error) {
