@@ -1,7 +1,7 @@
 import z from "zod";
 
 export const userSchema = z.object({
-    email: z.string().email(),
+    email: z.email(),
     socialId: z.string().min(1),
     loginType: z.enum(["Google", "Apple"]),
     deviceType: z.string().min(1),
