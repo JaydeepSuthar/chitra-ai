@@ -5,3 +5,5 @@ export type IGetImgResponseType = {
   seed: number;
   cost: number;
 }
+
+export type ICreditHistoryType = "ADS_REWARD" | "CREDIT_PURCHASE" | "IMAGE_GEN";

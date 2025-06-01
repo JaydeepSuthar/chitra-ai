@@ -36,3 +36,11 @@ export const events = pgTable("events", {
     userId: integer(),
     ...timestamps,
 });
+
+export const creditHistories = pgTable("credit_histories", {
+    id: serial().primaryKey().notNull(),
+    userId: integer().notNull(),
+    amount: integer().notNull(),
+    type: varchar("type", { length: 100 }).notNull(),
+    ...timestamps,
+});

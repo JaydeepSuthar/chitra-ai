@@ -1,8 +1,8 @@
-import { IdSchema } from "@/lib/validator";
 import db from "@/db";
 import * as schema from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { auth } from "@/lib/auth";
+import { addCreditHistory } from "@/backend/credit-histories";
 
 export async function POST(req: Request) {
     try {
@@ -39,6 +39,8 @@ export async function POST(req: Request) {
                 noOfAdsWatch: user.noOfAdsWatch + 1,
             })
             .where(eq(schema.users.id, authUser.id));
+
+        await addCreditHistory(user.id, randomCredits, 'ADS_REWARD');
 
         return Response.json(
             { message: "Reward claimed successfully", data: randomCredits, statusCode: 200 },
