@@ -8,6 +8,7 @@ import { ratelimitByIp } from "@/lib/rate-limiter";
 import { generateImageSchema } from "@/lib/validator";
 import type { IGetImgResponseType, IImageModel } from "@/types";
 import { eq, sql } from "drizzle-orm";
+import { addCreditHistory } from "@/backend/credit-histories";
 
 export async function POST(req: Request) {
   const authUser = await auth(req);
@@ -60,6 +61,8 @@ export async function POST(req: Request) {
 
     if (imageResponse === null)
       throw new Error("image response null");
+
+    await addCreditHistory(user.id, -cost, 'IMAGE_GEN');
 
     console.log(`new image generated. it costed us ${imageResponse.cost}`);
 
