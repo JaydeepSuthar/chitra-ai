@@ -18,14 +18,14 @@ export async function POST(req: Request) {
 
         if (!user) {
             return Response.json(
-                { message: "User not found" },
+                { message: "User not found", data: null, statusCode: 404 },
                 { status: 404 }
             );
         }
 
         if (user.isDeleted) {
             return Response.json(
-                { message: "User has been deleted" },
+                { message: "User has been deleted", data: null, statusCode: 400 },
                 { status: 400 }
             );
         }

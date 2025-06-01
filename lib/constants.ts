@@ -9,7 +9,7 @@ export const IMAGE_STYLES = [
   "Line Art",
   "Low Poly",
   "Oil Painting",
-];
+] as const;
 
 export const IMAGE_STYLE_PROMPTS = [
   {
@@ -52,7 +52,7 @@ export const IMAGE_STYLE_PROMPTS = [
     "style": "Oil Painting",
     "prompt": "Create an image that mimics the texture and appearance of an oil painting. Emphasize visible brushstrokes, rich colors, and potentially impasto effects (thick application of paint). The lighting and blending of colors should resemble traditional oil painting techniques. Apply this style to the provided input photo, giving it the look of an oil painting."
   }
-];
+] as const;
 
 export const ASPECT_RATIOS = [
   { ratio: "1:1", resolution: "1024x1024" },
@@ -60,7 +60,7 @@ export const ASPECT_RATIOS = [
   { ratio: "4:3", resolution: "1024x768" },
   { ratio: "16:9", resolution: "1280x720" },
   { ratio: "9:16", resolution: "720x1280" },
-];
+] as const;
 
 export const NO_OF_ADS_ALLOWED_TO_WATCH_IN_DAY = 10;
 
@@ -76,6 +76,8 @@ export const IMAGE_GEN_OPTIONS = {
   output_format: 'jpeg',
   scheduler: 'euler',
   response_format: 'url'
-};
+} as const;
 
-export const GET_IMG_BASE_URL = 'https://api.getimg.ai/v1';
+export const GET_IMG_BASE_URL = 'https://api.getimg.ai/v1' as const;
+
+export const CREDIT_HISTORY_TYPE = ['ADS_REWARD', 'CREDIT_PURCHASE', 'IMAGE_GEN'] as const;
