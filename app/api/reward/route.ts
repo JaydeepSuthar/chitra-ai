@@ -1,58 +1,55 @@
-import { IdSchema } from "@/lib/validator";
 import db from "@/db";
 import * as schema from "@/db/schema";
 import { eq } from "drizzle-orm";
+import { auth } from "@/lib/auth";
+import { addCreditHistory } from "@/backend/credit-histories";
 
 export async function POST(req: Request) {
     try {
-        const rawData = await req.json();
+        const authUser = await auth(req);
 
-        const { success, data, error } = IdSchema.safeParse(rawData);
-
-        if (!success) {
-            return Response.json(
-                { message: "Validation failed" },
-                { status: 422 }
-            );
-        }
+        if (!authUser)
+            return Response.json({ message: 'Authentication required', data: null, statusCode: 401 }, { status: 401 });
 
         const [user] = await db
             .select()
             .from(schema.users)
-            .where(eq(schema.users.deviceId, data.deviceId));
+            .where(eq(schema.users.id, authUser.id));
 
         if (!user) {
             return Response.json(
-                { message: "User not found" },
+                { message: "User not found", data: null, statusCode: 404 },
                 { status: 404 }
             );
         }
 
         if (user.isDeleted) {
             return Response.json(
-                { message: "User has been deleted" },
+                { message: "User has been deleted", data: null, statusCode: 400 },
                 { status: 400 }
             );
         }
 
-        const coin = Math.floor(Math.random() * (10 - 3 + 1) + 3);
+        const randomCredits = Math.floor(Math.random() * (10 - 3 + 1) + 3);
 
         await db
             .update(schema.users)
             .set({
-                coin: user.coin + coin,
+                credits: user.credits + randomCredits,
                 noOfAdsWatch: user.noOfAdsWatch + 1,
             })
-            .where(eq(schema.users.deviceId, data.deviceId));
+            .where(eq(schema.users.id, authUser.id));
+
+        await addCreditHistory(user.id, randomCredits, 'ADS_REWARD');
 
         return Response.json(
-            { message: "Reward claimed successfully", data: coin },
+            { message: "Reward claimed successfully", data: randomCredits, statusCode: 200 },
             { status: 200 }
         );
     } catch (error) {
         console.error("Error claiming reward:", error);
         return Response.json(
-            { message: "Unable to process request at the moment." },
+            { message: "Unable to process request at the moment.", data: null, statusCode: 400 },
             { status: 400 }
         );
     }

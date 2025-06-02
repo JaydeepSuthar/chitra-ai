@@ -1,0 +1,9 @@
+export type IImageModel = 'text-to-image' | 'image-to-image';
+
+export type IGetImgResponseType = {
+  url: string;
+  seed: number;
+  cost: number;
+}
+
+export type ICreditHistoryType = "ADS_REWARD" | "CREDIT_PURCHASE" | "IMAGE_GEN";

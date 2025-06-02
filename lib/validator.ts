@@ -1,7 +1,7 @@
 import z from "zod";
 
 export const userSchema = z.object({
-    email: z.string().email(),
+    email: z.email(),
     socialId: z.string().min(1),
     loginType: z.enum(["Google", "Apple"]),
     deviceType: z.string().min(1),
@@ -14,8 +14,9 @@ export const IdSchema = z.object({
 });
 
 export const generateImageSchema = z.object({
-    userId: z.number(),
+    userId: z.number().optional(),
     prompt: z.string().trim().min(3),
-    style: z.string().trim(),
-    image: z.string().optional(),
+    style: z.string().trim().optional(),
+    aspectRatio: z.string(),
+    image: z.string().optional()
 });

@@ -1,43 +1,76 @@
+import db from "@/db";
+import * as schema from '@/db/schema';
+import { auth } from "@/lib/auth";
+import { ASPECT_RATIOS, IMAGE_STYLES, IMAGE_TO_IMAGE_COST, TEXT_TO_IMAGE_COST } from "@/lib/constants";
 import { imageToImage, textToImage } from "@/lib/generate-image";
 import imageToBase64 from "@/lib/image-to-base64";
 import { ratelimitByIp } from "@/lib/rate-limiter";
 import { generateImageSchema } from "@/lib/validator";
-
-export async function GET(req: Request) {
-  const isRatelimitExceed = await ratelimitByIp();
-
-  if (isRatelimitExceed)
-    return Response.json({ error: "Ratelimit Exceed" }, { status: 429 });
-
-  return Response.json({ message: 'Welcome to Chitra AI' }, { status: 200 });
-}
+import type { IGetImgResponseType, IImageModel } from "@/types";
+import { eq, sql } from "drizzle-orm";
+import { addCreditHistory } from "@/backend/credit-histories";
 
 export async function POST(req: Request) {
+  const authUser = await auth(req);
+
+  if (!authUser)
+    return Response.json({ message: 'Authentication required', data: null, statusCode: 401 }, { status: 401 });
+
   const rawData = await req.json();
   const { success, data, error } = generateImageSchema.safeParse(rawData);
 
   if (!success)
-    return Response.json({ message: 'Validation failed' }, { status: 422 });
+    return Response.json({ message: 'Validation failed', data: null, statusCode: 422 }, { status: 422 });
 
   // const isRatelimitExceed = await ratelimitByIp();
 
   // if (isRatelimitExceed)
   //   return Response.json({ error: "Ratelimit Exceed" }, { status: 429 });
 
+  let model: IImageModel = 'text-to-image';
+
+  if (data.image)
+    model = 'image-to-image';
+
+  const cost = model === 'image-to-image' ? IMAGE_TO_IMAGE_COST : TEXT_TO_IMAGE_COST;
+
+  const [user] = await db.select().from(schema.users).where(eq(schema.users.id, authUser.id));
+
+  if (user.credits < cost)
+    return Response.json({ message: 'Insufficient balance', data: null, statusCode: 400 }, { status: 400 });
+
+  if (data.style && !IMAGE_STYLES.find(it => it === data.style))
+    return Response.json({ message: 'Please provide valid supported styles', data: null, statusCode: 400 }, { status: 400 });
+
+  const ratio = ASPECT_RATIOS.find(it => it.ratio === data.aspectRatio);
+
+  if (!ratio?.ratio)
+    return Response.json({ message: 'Please provide valid supported aspect ration', data: null, statusCode: 400 }, { status: 400 });
+
+  const [height, width] = ratio.resolution.split('x').map(Number);
+
   try {
-    // const base64 = await imageToBase64(`${process.cwd()}/public/img.jpg`);
+    let imageResponse: IGetImgResponseType | null = null;
 
-    // if (!base64)
-    //   throw new Error("base64 not generated");
+    if (model === 'text-to-image')
+      imageResponse = await textToImage(data.prompt, height, width);
+    else if (model === 'image-to-image' && data.image)
+      imageResponse = await imageToImage(data.prompt, data.image);
+    else
+      throw new Error("No model selected");
 
-    const imgResponse = await textToImage(data.prompt);
-    // const data = await imageToImage('a man standing on moon holding indian flag', base64);
-    // console.dir(data, { depth: Number.MAX_SAFE_INTEGER });
+    if (imageResponse === null)
+      throw new Error("image response null");
 
-    return Response.json({ message: 'Your Image is generated', data: imgResponse }, { status: 200 });
+    await addCreditHistory(user.id, -cost, 'IMAGE_GEN');
+
+    console.log(`new image generated. it costed us ${imageResponse.cost}`);
+
+    await db.update(schema.users).set({ credits: sql<number>`${schema.users.credits}-${cost}` }).where(eq(schema.users.id, authUser.id));
+
+    return Response.json({ message: 'Image generated', data: imageResponse.url, statusCode: 200 }, { status: 200 });
   } catch (error) {
-    console.log("error occur");
+    console.error("Error generating image:", error);
+    return Response.json({ message: "Unable to process request at the moment.", data: null, statusCode: 400 }, { status: 400 });
   }
-
-  return Response.json({ message: 'Welcome to Chitra AI' }, { status: 200 });
 }
