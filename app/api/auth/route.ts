@@ -1,8 +1,9 @@
 import db from "@/db";
 import * as schema from "@/db/schema";
+import { auth } from "@/lib/auth";
 import { generateToken } from "@/lib/jwt";
 import { userSchema } from "@/lib/validator";
-import { eq } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
 
 export async function POST(req: Request) {
     try {
@@ -37,6 +38,34 @@ export async function POST(req: Request) {
 
         return Response.json(
             { message: "Welcome to Chitra AI", data: { ...user, accessToken, refreshToken }, statusCode: 200 },
+            { status: 200 }
+        );
+    } catch (error) {
+        console.log(error);
+        return Response.json(
+            { message: "Unable to process request at the moment.", data: null, statusCode: 400 },
+            { status: 400 }
+        );
+    }
+}
+
+export async function DELETE(req: Request) {
+    try {
+        const authUser = await auth(req);
+
+        if (!authUser)
+            return Response.json({ message: 'Authentication required', data: null, statusCode: 401 }, { status: 401 });
+
+        const [user] = await db.select().from(schema.users).where(and(eq(schema.users.id, authUser.id), eq(schema.users.isDeleted, false)))
+
+        if (!user)
+            return Response.json(
+                { message: "User not found", data: null, statusCode: 404 },
+                { status: 404 }
+            );
+
+        return Response.json(
+            { message: "User logout successfully", data: null, statusCode: 200 },
             { status: 200 }
         );
     } catch (error) {
