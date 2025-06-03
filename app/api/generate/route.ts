@@ -1,7 +1,7 @@
 import db from "@/db";
 import * as schema from '@/db/schema';
 import { auth } from "@/lib/auth";
-import { ASPECT_RATIOS, IMAGE_STYLES, IMAGE_TO_IMAGE_COST, TEXT_TO_IMAGE_COST } from "@/lib/constants";
+import { ASPECT_RATIOS, IMAGE_STYLE_PROMPTS, IMAGE_STYLES, IMAGE_TO_IMAGE_COST, TEXT_TO_IMAGE_COST } from "@/lib/constants";
 import { imageToImage, textToImage } from "@/lib/generate-image";
 import imageToBase64 from "@/lib/image-to-base64";
 import { ratelimitByIp } from "@/lib/rate-limiter";
@@ -27,6 +27,8 @@ export async function POST(req: Request) {
   // if (isRatelimitExceed)
   //   return Response.json({ error: "Ratelimit Exceed" }, { status: 429 });
 
+  if (data.style === 'None') data.style = undefined;
+
   let model: IImageModel = 'text-to-image';
 
   if (data.image)
@@ -42,12 +44,21 @@ export async function POST(req: Request) {
   if (data.style && !IMAGE_STYLES.find(it => it === data.style))
     return Response.json({ message: 'Please provide valid supported styles', data: null, statusCode: 400 }, { status: 400 });
 
+  if (model === 'image-to-image' && data.style) {
+    const stylePrompt = IMAGE_STYLE_PROMPTS.find(it => it.style === data.style);
+
+    data.prompt = `SYSTEM: ${stylePrompt}\nUSER: ${data.prompt}`;
+  }
+
   const ratio = ASPECT_RATIOS.find(it => it.ratio === data.aspectRatio);
 
   if (!ratio?.ratio)
     return Response.json({ message: 'Please provide valid supported aspect ration', data: null, statusCode: 400 }, { status: 400 });
 
   const [height, width] = ratio.resolution.split('x').map(Number);
+
+  if (!data.prompt)
+    return Response.json({ message: 'Please provide valid prompt or select style to generate image', data: null, statusCode: 400 }, { status: 400 });
 
   try {
     let imageResponse: IGetImgResponseType | null = null;
