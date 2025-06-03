@@ -1,4 +1,5 @@
 export const IMAGE_STYLES = [
+  "None",
   "Ghibli",
   "Anime",
   "Realistic",
@@ -62,7 +63,7 @@ export const ASPECT_RATIOS = [
   { ratio: "9:16", resolution: "720x1280" },
 ] as const;
 
-export const NO_OF_ADS_ALLOWED_TO_WATCH_IN_DAY = 10;
+export const NO_OF_ADS_ALLOWED_TO_WATCH_IN_DAY = 20;
 
 export const TEXT_TO_IMAGE_COST = 3;
 
