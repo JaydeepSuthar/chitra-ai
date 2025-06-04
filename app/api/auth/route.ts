@@ -21,9 +21,18 @@ export async function POST(req: Request) {
             .from(schema.users)
             .where(eq(schema.users.email, data.email));
 
+        if (isUserExists?.isDeleted)
+            return Response.json(
+                { message: "Invalid account! Please try to login with other account.", data: null, statusCode: 400 },
+                { status: 400 }
+            );
+
         if (isUserExists) {
             const accessToken = generateToken(isUserExists);
             const refreshToken = generateToken(isUserExists);
+
+            if (!isUserExists.fcmToken)
+                await db.update(schema.users).set({ fcmToken: data.fcmToken }).where(eq(schema.users.id, isUserExists.id))
 
             return Response.json(
                 { message: "Welcome to Chitra AI", data: { ...isUserExists, accessToken, refreshToken }, statusCode: 200 },
@@ -63,6 +72,8 @@ export async function DELETE(req: Request) {
                 { message: "User not found", data: null, statusCode: 404 },
                 { status: 404 }
             );
+
+        await db.update(schema.users).set({ fcmToken: null }).where(eq(schema.users.id, user.id))
 
         return Response.json(
             { message: "User logout successfully", data: null, statusCode: 200 },
