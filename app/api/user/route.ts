@@ -2,7 +2,7 @@ import db from "@/db";
 import * as schema from "@/db/schema";
 import { auth } from "@/lib/auth";
 import { IdSchema } from "@/lib/validator";
-import { eq, sql } from "drizzle-orm";
+import { and, eq, sql } from "drizzle-orm";
 
 export async function POST(req: Request) {
     try {
@@ -54,12 +54,42 @@ export async function GET(req: Request) {
         if (!authUser)
             return Response.json({ message: 'Authentication required', data: null, statusCode: 400 }, { status: 400 });
 
-        const [user] = await db.select().from(schema.users).where(eq(schema.users.id, authUser.id));
+        const [user] = await db.select().from(schema.users).where(and(eq(schema.users.id, authUser.id), eq(schema.users.isDeleted, false)));
 
         if (!user)
             return Response.json({ message: 'User not found', data: null, statusCode: 404 }, { status: 404 });
 
-        return Response.json({ message: 'User details', data: user, statusCode: 200 }, { status: 200 });
+        const history = await db
+            .select({
+                amount: schema.creditHistories.amount,
+                type: schema.creditHistories.type,
+                date: schema.creditHistories.createdAt
+            })
+            .from(schema.creditHistories)
+            .where(eq(schema.creditHistories.userId, authUser.id));
+
+        let totalCreditsEarn = 0;
+        let totalCreditsSpend = 0;
+
+        const totalHistory = history.length;
+        for (let idx = 0; idx < totalHistory; idx++) {
+            const _history = history[idx];
+
+            if (_history.amount > 0) totalCreditsEarn += _history.amount;
+            else if (_history.amount < 0) totalCreditsSpend -= _history.amount;
+        }
+
+        totalCreditsSpend = Math.abs(totalCreditsSpend);
+
+        const userCredits = {
+            balance: user.credits,
+            totalCreditsEarn,
+            totalCreditsSpend,
+            totalAdsWatch: user.noOfAdsWatch,
+            history: history
+        }
+
+        return Response.json({ message: 'User details', data: { ...user, ...userCredits }, statusCode: 200 }, { status: 200 });
     } catch (error) {
         console.error("Unable to get user details:", error);
         return Response.json({ message: "Unable to process request at the moment.", data: null, statusCode: 400 }, { status: 400 });
@@ -73,12 +103,12 @@ export async function DELETE(req: Request) {
         if (!authUser)
             return Response.json({ message: 'Authentication required', data: null, statusCode: 400 }, { status: 400 });
 
-        const [user] = await db.select().from(schema.users).where(eq(schema.users.id, authUser.id));
+        const [user] = await db.select().from(schema.users).where(and(eq(schema.users.id, authUser.id), eq(schema.users.isDeleted, false)));
 
         if (!user)
             return Response.json({ message: 'User not found', data: null, statusCode: 404 }, { status: 404 });
 
-        await db.update(schema.users).set({ isDeleted: true, deletedAt: sql`now()` });
+        await db.update(schema.users).set({ isDeleted: true, deletedAt: sql`now()` }).where(eq(schema.users.id, authUser.id));
 
         return Response.json({ message: 'User deleted successfully', data: null, statusCode: 200 }, { status: 200 });
     } catch (error) {

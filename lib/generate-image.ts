@@ -34,7 +34,7 @@ export async function imageToImage(prompt: string, image: string) {
 
   const imageGenOptions = {
     ...IMAGE_GEN_OPTIONS,
-    prompt: 'A serene, whimsical landscape in the style of Studio Ghibli, lush green forests with softly glowing sunlight filtering through the trees, a small cottage with moss-covered roof nestled among giant mushrooms, delicate hand-painted textures, vibrant yet soft color palette, dreamy atmosphere, anime-style character with expressive eyes exploring the scenery, cinematic composition, highly detailed, fantasy-inspired environment, warm lighting, magical realism',
+    prompt: prompt,
     image,
   };
 
