@@ -15,7 +15,7 @@ export const IdSchema = z.object({
 
 export const generateImageSchema = z.object({
     userId: z.number().optional(),
-    prompt: z.string().trim().min(3),
+    prompt: z.string().trim().optional(),
     style: z.string().trim().optional(),
     aspectRatio: z.string(),
     image: z.string().optional()
