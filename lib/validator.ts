@@ -20,3 +20,7 @@ export const generateImageSchema = z.object({
     aspectRatio: z.string(),
     image: z.string().optional()
 });
+
+export const authRefreshSchema = z.object({
+    token: z.string()
+})
