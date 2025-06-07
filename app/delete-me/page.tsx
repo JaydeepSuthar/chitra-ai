@@ -51,7 +51,7 @@ export default function DeleteMePage() {
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ userId: user.email }),
+                body: JSON.stringify({ userId: user.id }),
             });
 
             if (response.ok) {
@@ -96,6 +96,7 @@ export default function DeleteMePage() {
                                         console.log(jwtDecode(credentialResponse.credential))
 
                                         const user = jwtDecode(credentialResponse.credential) as IGoogleOAuthData;
+                                        console.log("user", user);
 
                                         const account: IAccount = {
                                             id: user.sub,
