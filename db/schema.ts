@@ -4,6 +4,7 @@ import {
     pgEnum,
     pgTable,
     serial,
+    text,
     timestamp,
     varchar,
 } from "drizzle-orm/pg-core";
@@ -27,6 +28,7 @@ export const users = pgTable("users", {
     credits: integer().default(5).notNull(),
     noOfAdsWatch: integer("no_of_ads_watch").default(0).notNull(),
     isDeleted: boolean("is_deleted").default(false),
+    token: text("token"),
     ...timestamps,
 });
 
