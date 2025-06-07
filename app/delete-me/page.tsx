@@ -50,8 +50,8 @@ export default function DeleteMePage() {
         setAuthState("deleting");
 
         try {
-            const response = await fetch("/api/user", {
-                method: "DELETE",
+            const response = await fetch("/api/delete-me", {
+                method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },

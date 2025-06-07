@@ -18,9 +18,9 @@ export const generateImageSchema = z.object({
     prompt: z.string().trim().optional(),
     style: z.string().trim().optional(),
     aspectRatio: z.string(),
-    image: z.string().optional()
+    image: z.string().optional(),
 });
 
 export const authRefreshSchema = z.object({
-    token: z.string()
-})
+    token: z.string(),
+});
