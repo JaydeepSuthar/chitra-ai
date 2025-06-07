@@ -16,6 +16,7 @@ export async function POST(req: Request) {
       );
 
     const isValidToken = decodeToken(data.token) as { id: number };
+
     if (!isValidToken)
       return Response.json(
         { message: "Invalid Token", data: null, statusCode: 400 },

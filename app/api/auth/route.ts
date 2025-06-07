@@ -34,6 +34,8 @@ export async function POST(req: Request) {
             if (!isUserExists.fcmToken)
                 await db.update(schema.users).set({ fcmToken: data.fcmToken }).where(eq(schema.users.id, isUserExists.id))
 
+            await db.update(schema.users).set({ token: refreshToken }).where(eq(schema.users.id, isUserExists.id));
+
             return Response.json(
                 { message: "Welcome to Chitra AI", data: { ...isUserExists, accessToken, refreshToken }, statusCode: 200 },
                 { status: 200 }
@@ -44,6 +46,8 @@ export async function POST(req: Request) {
 
         const accessToken = generateToken(user);
         const refreshToken = generateToken(user);
+
+        await db.update(schema.users).set({ token: refreshToken }).where(eq(schema.users.id, user.id));
 
         return Response.json(
             { message: "Welcome to Chitra AI", data: { ...user, accessToken, refreshToken }, statusCode: 200 },
