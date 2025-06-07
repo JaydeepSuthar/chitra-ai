@@ -82,3 +82,10 @@ export const IMAGE_GEN_OPTIONS = {
 export const GET_IMG_BASE_URL = 'https://api.getimg.ai/v1' as const;
 
 export const CREDIT_HISTORY_TYPE = ['ADS_REWARD', 'CREDIT_PURCHASE', 'IMAGE_GEN'] as const;
+
+export const ANDROID_PRICING_PLANS = [
+  { name: '10 Credits', productId: 'credits_10', credits: 10 },
+  { name: '50 Credits', productId: 'credits_50', credits: 50 },
+  { name: '100 Credits', productId: 'credits_100', credits: 100 },
+  { name: '1000 Credits', productId: 'credits_1000', credits: 1000 },
+] as const;
