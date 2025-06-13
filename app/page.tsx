@@ -1,13 +1,13 @@
 "use client";
 
-import { Button } from "@/components/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/card";
-import { Badge } from "@/components/badge";
+import { Button } from "@/components/landing-page/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/landing-page/card";
+import { Badge } from "@/components/landing-page/badge";
 import { Sparkles, ImageIcon, Type, Smartphone, Download, Palette, Wand2, Brush } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
-import { GeometricBackground } from "@/components/geometric-background";
-import { ScrollReveal } from "@/components/scroll-reveal";
+import { GeometricBackground } from "@/components/landing-page/geometric-background";
+import { ScrollReveal } from "@/components/landing-page/scroll-reveal";
 
 export default function Home() {
     const scrollToMobileApp = () => {
@@ -27,11 +27,10 @@ export default function Home() {
                     <div className="mr-4 flex">
                         <Link href="/" className="mr-6 flex items-center space-x-2 group">
                             <div className="animate-pulse-glow">
-                                <Sparkles className="h-7 w-7 text-primary transition-transform group-hover:scale-110" />
+                                <Sparkles className="h-5 w5 text-purple-300 transition-transform group-hover:scale-110" />
                             </div>
-                            <span className="font-bold text-xl bg-gradient-to-r from-primary to-violet-400 bg-clip-text text-transparent">
-                                Chitra AI
-                            </span>
+                            {/* bg-gradient-to-r from-primary to-violet-400 */}
+                            <span className="font-bold text-xl bg-white bg-clip-text text-transparent">Chitra AI</span>
                         </Link>
                     </div>
                     <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">
@@ -71,7 +70,7 @@ export default function Home() {
                                 </Badge>
                                 <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl/none">
                                     Transform Ideas into
-                                    <span className="block bg-gradient-to-r from-primary via-violet-400 to-purple-500 bg-clip-text text-transparent animate-gradient">
+                                    <span className="block bg-clip-text text-transparent bg-gradient-to-r from-primary via-violet-400 to-purple-500  animate-gradient">
                                         Stunning Visuals
                                     </span>
                                 </h1>
@@ -127,7 +126,7 @@ export default function Home() {
                                     <Badge variant="secondary" className="animate-pulse-glow">
                                         Core Features
                                     </Badge>
-                                    <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl bg-gradient-to-r from-foreground to-muted-foreground bg-clip-text text-transparent">
+                                    <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl bg-white bg-clip-text text-transparent">
                                         Powerful AI Generation Capabilities
                                     </h2>
                                     <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
@@ -255,7 +254,7 @@ export default function Home() {
                                         <Palette className="mr-1 h-3 w-3" />
                                         Advanced Retouching
                                     </Badge>
-                                    <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl bg-gradient-to-r from-foreground to-muted-foreground bg-clip-text text-transparent">
+                                    <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl bg-white bg-clip-text text-transparent">
                                         Professional Image Retouching
                                     </h2>
                                     <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
@@ -361,7 +360,7 @@ export default function Home() {
                                     <Badge variant="secondary" className="animate-pulse-glow">
                                         Simple Process
                                     </Badge>
-                                    <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl bg-gradient-to-r from-foreground to-muted-foreground bg-clip-text text-transparent">
+                                    <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl bg-white bg-clip-text text-transparent">
                                         Create in Three Easy Steps
                                     </h2>
                                     <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
@@ -398,7 +397,7 @@ export default function Home() {
                                 <ScrollReveal key={index} delay={item.delay}>
                                     <div className="flex flex-col items-center space-y-4 text-center group hover-lift">
                                         <div className="relative">
-                                            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-r from-primary to-violet-400 text-primary-foreground font-bold text-xl animate-pulse-glow group-hover:scale-110 transition-transform">
+                                            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-r from-purple-400 to-violet-400 text-primary-foreground font-bold text-xl animate-pulse-glow group-hover:scale-110 transition-transform">
                                                 {item.step}
                                             </div>
                                             <div className="absolute inset-0 rounded-full bg-primary/20 animate-ping group-hover:animate-none"></div>
@@ -427,7 +426,7 @@ export default function Home() {
                                             <Smartphone className="mr-1 h-3 w-3" />
                                             Mobile App
                                         </Badge>
-                                        <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl bg-gradient-to-r from-foreground to-muted-foreground bg-clip-text text-transparent">
+                                        <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl bg-white bg-clip-text text-transparent">
                                             Create on the Go
                                         </h2>
                                         <p className="max-w-[600px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
@@ -494,7 +493,7 @@ export default function Home() {
                         <ScrollReveal>
                             <div className="flex flex-col items-center justify-center space-y-6 text-center">
                                 <div className="space-y-4">
-                                    <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl bg-gradient-to-r from-primary via-violet-400 to-purple-500 bg-clip-text text-transparent">
+                                    <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl bg-gradient-to-r from-purple-400 via-violet-400 to-purple-500 bg-clip-text text-transparent">
                                         Ready to Create Amazing Visuals?
                                     </h2>
                                     <p className="mx-auto max-w-[600px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">

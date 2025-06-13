@@ -29,10 +29,6 @@ body {
 
 */
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 @layer base {
     :root {
         --background: 240 10% 3.9%;
@@ -56,19 +52,18 @@ body {
         --ring: 267 75% 60%;
         --radius: 0.5rem;
     }
-}
-/* 
-@layer base {
     * {
-        @apply border-border;
+        /* border-border utility removed; add equivalent CSS if needed */
+        border-color: hsl(var(--border));
     }
     body {
-        @apply bg-background text-foreground;
+        background-color: hsl(var(--background));
+        color: hsl(var(--foreground));
     }
     html {
         scroll-behavior: smooth;
     }
-} */
+}
 
 /* Custom animations */
 @keyframes float {
