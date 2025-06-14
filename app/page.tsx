@@ -469,7 +469,7 @@ export default function Home() {
                     <div className="container px-4 md:px-6">
                         <div className="grid items-center gap-8 lg:grid-cols-[1fr_500px] lg:gap-12 xl:grid-cols-[1fr_550px]">
                             <ScrollReveal>
-                                <div className="flex flex-col justify-center space-y-6">
+                                <div className="flex flex-col items-center md:items-start justify-center space-y-6">
                                     <div className="space-y-4">
                                         <Badge variant="secondary" className="animate-pulse-glow">
                                             <Smartphone className="mr-1 h-3 w-3" />
@@ -484,22 +484,22 @@ export default function Home() {
                                             designed for mobile creativity.
                                         </p>
                                     </div>
-                                    <ul className="grid gap-3 py-4">
+                                    <ul className="md:grid gap-3 hidden py-4">
                                         {[
                                             "Offline generation capabilities",
                                             "Cloud sync across devices",
                                             "Social sharing features",
                                             "Camera integration",
                                         ].map((feature, index) => (
-                                            <li key={index} className="flex items-center gap-3 group">
+                                            <li key={index} className="hidden md:flex items-center gap-3 group">
                                                 <div className="h-2 w-2 rounded-full bg-violet-500 animate-pulse group-hover:scale-150 transition-transform" />
-                                                <span className="text-sm group-hover:text-primary transition-colors">
+                                                <span className="text-sm  group-hover:text-primary transition-colors">
                                                     {feature}
                                                 </span>
                                             </li>
                                         ))}
                                     </ul>
-                                    <div className="flex flex-col gap-3 min-[400px]:flex-row">
+                                    <div className="flex flex-col gap-3 min-[400px]:flex-row md:w-full w-64 ">
                                         <Button
                                             size="lg"
                                             className="h-12 hover-lift glow-border animate-gradient text-white"
@@ -510,7 +510,7 @@ export default function Home() {
                                         <Button
                                             variant="outline"
                                             size="lg"
-                                            className="h-12 hover-lift border-primary/20 hover:border-primary"
+                                            className="h-[52px] hover-lift border-primary/20 hover:border-primary"
                                         >
                                             <Download className="mr-2 h-4 w-4" />
                                             Download for Android
@@ -550,18 +550,18 @@ export default function Home() {
                                         to life. Start your creative journey today.
                                     </p>
                                 </div>
-                                <div className="space-x-4">
+                                <div className="flex flex-col gap-3  min-[400px]:flex-row">
                                     <Button
                                         size="lg"
-                                        className="h-12 px-8 hover-lift glow-border animate-gradient text-white"
+                                        className="h-12 hover-lift glow-border animate-gradient text-white"
                                     >
                                         <Download className="mr-2 h-4 w-4" />
                                         Download for iOS
                                     </Button>
                                     <Button
-                                        size="lg"
                                         variant="outline"
-                                        className="h-12 px-8 hover-lift border-primary/20 hover:border-primary"
+                                        size="lg"
+                                        className="h-[52px] hover-lift border-primary/20 hover:border-primary"
                                     >
                                         <Download className="mr-2 h-4 w-4" />
                                         Download for Android
