@@ -18,7 +18,7 @@ export default function Home() {
     };
 
     return (
-        <div className="flex flex-col items-center justify-center text-center min-h-screen bg-background text-foreground relative overflow-hidden">
+        <div className="flex flex-col items-center justify-center text-center min-h-screen bg-background text-foreground relative ">
             <GeometricBackground />
 
             {/* Header */}
@@ -37,9 +37,9 @@ export default function Home() {
                         <Link href="#features" className="transition-all hover:text-primary hover:scale-105">
                             Features
                         </Link>
-                        <Link href="#retouch" className="transition-all hover:text-primary hover:scale-105">
+                        {/* <Link href="#retouch" className="transition-all hover:text-primary hover:scale-105">
                             Retouch
-                        </Link>
+                        </Link> */}
                         <Link href="#how-it-works" className="transition-all hover:text-primary hover:scale-105">
                             How it Works
                         </Link>
@@ -50,7 +50,7 @@ export default function Home() {
                             Download App
                         </button>
                         <Link href="/delete-me" className="transition-all hover:text-primary hover:scale-105">
-                            Account
+                            Delete Me
                         </Link>
                     </nav>
                 </div>
@@ -74,7 +74,7 @@ export default function Home() {
                                 </h1>
 
                                 <p
-                                    className="mx-auto max-w-[700px] text-muted-foreground md:text-xl animate-fade-in-up"
+                                    className="mx-auto max-w-[700px] text-gray-400 md:text-xl animate-fade-in-up"
                                     style={{ animationDelay: "0.2s" }}
                                 >
                                     Chitra AI brings your imagination to life with cutting-edge text-to-image and
@@ -103,7 +103,7 @@ export default function Home() {
                                 <div className="w-full max-w-5xl mt-16">
                                     <div className="relative rounded-2xl border border-primary/20 bg-card/50 backdrop-blur-3xl p-6 hover-lift shimmer-effect">
                                         <Image
-                                            src="/placeholder.svg?height=500&width=900"
+                                            src="/chitra.png?height=800&width=350"
                                             width={900}
                                             height={500}
                                             alt="Chitra AI Interface Preview"
@@ -128,7 +128,7 @@ export default function Home() {
                                     <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl bg-white bg-clip-text text-transparent">
                                         Powerful AI Generation Capabilities
                                     </h2>
-                                    <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+                                    <p className="max-w-[900px] text-gray-400 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
                                         Experience the future of visual content creation with our advanced AI models
                                         designed for both beginners and professionals.
                                     </p>
@@ -142,33 +142,33 @@ export default function Home() {
                                     <CardHeader>
                                         <div className="flex items-center space-x-2">
                                             <div className="p-2 rounded-lg bg-primary/10 animate-pulse-glow">
-                                                <Type className="h-6 w-6 text-primary" />
+                                                <Type className="h-6 w-6 text-violet-500" />
                                             </div>
                                             <CardTitle className="text-xl">Text-to-Image Generation</CardTitle>
                                         </div>
-                                        <CardDescription className="text-muted-foreground">
+                                        <CardDescription className="text-gray-400">
                                             Transform your written descriptions into stunning visual artwork with our
                                             advanced AI models.
                                         </CardDescription>
                                     </CardHeader>
                                     <CardContent className="space-y-4">
-                                        <div className="space-y-2">
-                                            <h4 className="font-semibold text-primary">Key Features:</h4>
-                                            <ul className="space-y-2 text-sm text-muted-foreground">
+                                        <div className="space-y-2 flex flex-col items-start">
+                                            <h4 className="font-semibold text-violet-500">Key Features:</h4>
+                                            <ul className="space-y-2 text-sm text-gray-400">
                                                 <li className="flex items-center space-x-2">
-                                                    <div className="w-1 h-1 bg-primary rounded-full animate-pulse"></div>
+                                                    <div className="w-1 h-1 bg-violet-500 rounded-full animate-pulse"></div>
                                                     <span>Natural language processing for detailed prompts</span>
                                                 </li>
                                                 <li className="flex items-center space-x-2">
-                                                    <div className="w-1 h-1 bg-primary rounded-full animate-pulse"></div>
+                                                    <div className="w-1 h-1 bg-violet-500 rounded-full animate-pulse"></div>
                                                     <span>Multiple art styles and genres</span>
                                                 </li>
                                                 <li className="flex items-center space-x-2">
-                                                    <div className="w-1 h-1 bg-primary rounded-full animate-pulse"></div>
+                                                    <div className="w-1 h-1 bg-violet-500 rounded-full animate-pulse"></div>
                                                     <span>High-resolution output up to 4K</span>
                                                 </li>
                                                 <li className="flex items-center space-x-2">
-                                                    <div className="w-1 h-1 bg-primary rounded-full animate-pulse"></div>
+                                                    <div className="w-1 h-1 bg-violet-500 rounded-full animate-pulse"></div>
                                                     <span>Batch generation capabilities</span>
                                                 </li>
                                             </ul>
@@ -176,7 +176,7 @@ export default function Home() {
                                         <div className="pt-4">
                                             <div className="relative rounded-lg overflow-hidden">
                                                 <Image
-                                                    src="/placeholder.svg?height=200&width=350"
+                                                    src="/chitra-home-square.png?height=200&width=350"
                                                     width={350}
                                                     height={200}
                                                     alt="Text-to-Image Example"
@@ -194,33 +194,33 @@ export default function Home() {
                                     <CardHeader>
                                         <div className="flex items-center space-x-2">
                                             <div className="p-2 rounded-lg bg-primary/10 animate-pulse-glow">
-                                                <ImageIcon className="h-6 w-6 text-primary" />
+                                                <ImageIcon className="h-6 w-6 text-violet-500" />
                                             </div>
                                             <CardTitle className="text-xl">Image-to-Image Transformation</CardTitle>
                                         </div>
-                                        <CardDescription className="text-muted-foreground">
+                                        <CardDescription className="text-gray-400">
                                             Upload existing images and transform them into new artistic creations while
                                             preserving key elements.
                                         </CardDescription>
                                     </CardHeader>
                                     <CardContent className="space-y-4">
-                                        <div className="space-y-2">
-                                            <h4 className="font-semibold text-primary">Key Features:</h4>
-                                            <ul className="space-y-2 text-sm text-muted-foreground">
+                                        <div className="space-y-2 flex flex-col items-start">
+                                            <h4 className="font-semibold text-violet-500">Key Features:</h4>
+                                            <ul className="space-y-2 text-sm text-gray-400">
                                                 <li className="flex items-center space-x-2">
-                                                    <div className="w-1 h-1 bg-primary rounded-full animate-pulse"></div>
+                                                    <div className="w-1 h-1 bg-violet-500 rounded-full animate-pulse"></div>
                                                     <span>Style transfer and artistic filters</span>
                                                 </li>
                                                 <li className="flex items-center space-x-2">
-                                                    <div className="w-1 h-1 bg-primary rounded-full animate-pulse"></div>
+                                                    <div className="w-1 h-1 bg-violet-500 rounded-full animate-pulse"></div>
                                                     <span>Content-aware modifications</span>
                                                 </li>
                                                 <li className="flex items-center space-x-2">
-                                                    <div className="w-1 h-1 bg-primary rounded-full animate-pulse"></div>
+                                                    <div className="w-1 h-1 bg-violet-500 rounded-full animate-pulse"></div>
                                                     <span>Preserve or modify specific elements</span>
                                                 </li>
                                                 <li className="flex items-center space-x-2">
-                                                    <div className="w-1 h-1 bg-primary rounded-full animate-pulse"></div>
+                                                    <div className="w-1 h-1 bg-violet-500 rounded-full animate-pulse"></div>
                                                     <span>Multiple transformation options</span>
                                                 </li>
                                             </ul>
@@ -228,7 +228,7 @@ export default function Home() {
                                         <div className="pt-4">
                                             <div className="relative rounded-lg overflow-hidden">
                                                 <Image
-                                                    src="/placeholder.svg?height=200&width=350"
+                                                    src="/chitra-home-square.png?height=200&width=350"
                                                     width={350}
                                                     height={200}
                                                     alt="Image-to-Image Example"
@@ -244,7 +244,7 @@ export default function Home() {
                 </section>
 
                 {/* Retouch Section */}
-                <section id="retouch" className="w-full py-12 md:py-24 lg:py-32 relative">
+                {/* <section id="retouch" className="w-full py-12 md:py-24 lg:py-32 relative">
                     <div className="container px-4 md:px-6">
                         <ScrollReveal>
                             <div className="flex flex-col items-center justify-center space-y-4 text-center">
@@ -256,7 +256,7 @@ export default function Home() {
                                     <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl bg-white bg-clip-text text-transparent">
                                         Professional Image Retouching
                                     </h2>
-                                    <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+                                    <p className="max-w-[900px] text-gray-400 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
                                         Perfect your images with AI-powered retouching tools that enhance, restore, and
                                         refine your visuals with professional-grade precision.
                                     </p>
@@ -315,17 +315,17 @@ export default function Home() {
                                                 </div>
                                                 <CardTitle className="text-xl">{item.title}</CardTitle>
                                             </div>
-                                            <CardDescription className="text-muted-foreground">
+                                            <CardDescription className="text-gray-400">
                                                 {item.description}
                                             </CardDescription>
                                         </CardHeader>
                                         <CardContent className="space-y-4">
-                                            <div className="space-y-2">
-                                                <h4 className="font-semibold text-primary">Capabilities:</h4>
-                                                <ul className="space-y-2 text-sm text-muted-foreground">
+                                            <div className="space-y-2 flex flex-col items-start">
+                                                <h4 className="font-semibold text-violet-500">Capabilities:</h4>
+                                                <ul className="space-y-2 text-sm text-gray-400">
                                                     {item.features.map((feature, featureIndex) => (
                                                         <li key={featureIndex} className="flex items-center space-x-2">
-                                                            <div className="w-1 h-1 bg-primary rounded-full animate-pulse"></div>
+                                                            <div className="w-1 h-1 bg-violet-500 rounded-full animate-pulse"></div>
                                                             <span>{feature}</span>
                                                         </li>
                                                     ))}
@@ -348,7 +348,7 @@ export default function Home() {
                             ))}
                         </div>
                     </div>
-                </section>
+                </section> */}
 
                 {/* How It Works Section */}
                 <section id="how-it-works" className="w-full py-12 md:py-24 lg:py-32 bg-muted/20 relative">
@@ -362,7 +362,7 @@ export default function Home() {
                                     <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl bg-white bg-clip-text text-transparent">
                                         Create in Three Easy Steps
                                     </h2>
-                                    <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+                                    <p className="max-w-[900px] text-gray-400 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
                                         Our intuitive interface makes AI image generation accessible to everyone, from
                                         creative professionals to casual users.
                                     </p>
@@ -404,7 +404,7 @@ export default function Home() {
                                         <h3 className="text-xl font-bold group-hover:text-primary transition-colors">
                                             {item.title}
                                         </h3>
-                                        <p className="text-muted-foreground group-hover:text-foreground transition-colors">
+                                        <p className="text-gray-400 group-hover:text-foreground text-[17px] transition-colors">
                                             {item.description}
                                         </p>
                                     </div>
@@ -428,7 +428,7 @@ export default function Home() {
                                         <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl bg-white bg-clip-text text-transparent">
                                             Create on the Go
                                         </h2>
-                                        <p className="max-w-[600px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+                                        <p className="max-w-[600px] text-gray-400 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
                                             Take Chitra AI with you anywhere. Our mobile app brings the full power of AI
                                             image generation to your smartphone, with an intuitive touch interface
                                             designed for mobile creativity.
@@ -442,7 +442,7 @@ export default function Home() {
                                             "Camera integration",
                                         ].map((feature, index) => (
                                             <li key={index} className="flex items-center gap-3 group">
-                                                <div className="h-2 w-2 rounded-full bg-primary animate-pulse group-hover:scale-150 transition-transform" />
+                                                <div className="h-2 w-2 rounded-full bg-violet-500 animate-pulse group-hover:scale-150 transition-transform" />
                                                 <span className="text-sm group-hover:text-primary transition-colors">
                                                     {feature}
                                                 </span>
@@ -472,7 +472,7 @@ export default function Home() {
                                 <div className="relative">
                                     <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-violet-400/20 rounded-2xl blur-3xl animate-pulse"></div>
                                     <Image
-                                        src="/placeholder.svg?height=600&width=400"
+                                        src="/chitra-home.png?height=600&width=400"
                                         width={400}
                                         height={600}
                                         alt="Chitra AI Mobile App"
@@ -495,7 +495,7 @@ export default function Home() {
                                     <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl bg-gradient-to-r from-purple-400 via-violet-400 to-purple-500 bg-clip-text text-transparent">
                                         Ready to Create Amazing Visuals?
                                     </h2>
-                                    <p className="mx-auto max-w-[600px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+                                    <p className="mx-auto max-w-[600px] text-gray-400 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
                                         Join thousands of creators who are already using Chitra AI to bring their ideas
                                         to life. Start your creative journey today.
                                     </p>
@@ -527,17 +527,17 @@ export default function Home() {
             <footer className="flex flex-col gap-2 sm:flex-row py-8 w-full shrink-0 items-center px-4 md:px-6 border-t border-border/40 bg-card/20 backdrop-blur-3xl relative z-20">
                 <div className="flex items-center space-x-2">
                     <Sparkles className="h-4 w-4 text-primary animate-pulse" />
-                    <p className="text-xs text-muted-foreground">© 2024 Chitra AI. All rights reserved.</p>
+                    <p className="text-xs text-gray-400">© 2024 Chitra AI. All rights reserved.</p>
                 </div>
                 <nav className="sm:ml-auto flex gap-4 sm:gap-6">
                     <Link
-                        href="#"
+                        href="/terms-of-service"
                         className="text-xs hover:underline underline-offset-4 hover:text-primary transition-colors"
                     >
                         Terms of Service
                     </Link>
                     <Link
-                        href="#"
+                        href="/privacy-policy"
                         className="text-xs hover:underline underline-offset-4 hover:text-primary transition-colors"
                     >
                         Privacy Policy
