@@ -1,10 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { Button } from "@/components/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/card";
-import { Alert, AlertDescription } from "@/components/alert";
-import { Trash2, LogIn, CheckCircle, AlertTriangle, Shield, User } from "lucide-react";
+import { Button } from "@/components/utils/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/utils/card";
+import { Alert, AlertDescription } from "@/components/utils/alert";
+import { Trash2, LogIn, CheckCircle, AlertTriangle, Shield, User, ArrowBigLeft } from "lucide-react";
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { app } from "@/lib/firebase";
 
