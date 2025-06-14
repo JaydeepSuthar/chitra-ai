@@ -18,43 +18,41 @@ export default function Home() {
     };
 
     return (
-        <div className="flex flex-col min-h-screen bg-background text-foreground relative overflow-hidden">
+        <div className="flex flex-col items-center justify-center text-center min-h-screen bg-background text-foreground relative overflow-hidden">
             <GeometricBackground />
 
             {/* Header */}
             <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/80 backdrop-blur-xl supports-[backdrop-filter]:bg-background/60">
-                <div className="container flex h-16 items-center">
-                    <div className="mr-4 flex">
-                        <Link href="/" className="mr-6 flex items-center space-x-2 group">
+                <div className="flex h-16 w-full items-center justify-between px-6">
+                    <div className="flex items-center space-x-2">
+                        <Link href="/" className="flex items-center space-x-2 group">
                             <div className="animate-pulse-glow">
-                                <Sparkles className="h-5 w5 text-purple-300 transition-transform group-hover:scale-110" />
+                                <Sparkles className="h-5 w-5 text-purple-300 transition-transform group-hover:scale-110" />
                             </div>
-                            {/* bg-gradient-to-r from-primary to-violet-400 */}
                             <span className="font-bold text-xl bg-white bg-clip-text text-transparent">Chitra AI</span>
                         </Link>
                     </div>
-                    <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">
-                        <nav className="flex items-center space-x-6 text-sm font-medium">
-                            <Link href="#features" className="transition-all hover:text-primary hover:scale-105">
-                                Features
-                            </Link>
-                            <Link href="#retouch" className="transition-all hover:text-primary hover:scale-105">
-                                Retouch
-                            </Link>
-                            <Link href="#how-it-works" className="transition-all hover:text-primary hover:scale-105">
-                                How it Works
-                            </Link>
-                            <button
-                                onClick={scrollToMobileApp}
-                                className="transition-all hover:text-primary hover:scale-105"
-                            >
-                                Download App
-                            </button>
-                            <Link href="/delete-me" className="transition-all hover:text-primary hover:scale-105">
-                                Account
-                            </Link>
-                        </nav>
-                    </div>
+
+                    <nav className="flex items-center space-x-6 text-sm font-medium">
+                        <Link href="#features" className="transition-all hover:text-primary hover:scale-105">
+                            Features
+                        </Link>
+                        <Link href="#retouch" className="transition-all hover:text-primary hover:scale-105">
+                            Retouch
+                        </Link>
+                        <Link href="#how-it-works" className="transition-all hover:text-primary hover:scale-105">
+                            How it Works
+                        </Link>
+                        <button
+                            onClick={scrollToMobileApp}
+                            className="transition-all hover:text-primary hover:scale-105"
+                        >
+                            Download App
+                        </button>
+                        <Link href="/delete-me" className="transition-all hover:text-primary hover:scale-105">
+                            Account
+                        </Link>
+                    </nav>
                 </div>
             </header>
 
@@ -68,12 +66,13 @@ export default function Home() {
                                     <Sparkles className="mr-1 h-3 w-3" />
                                     AI-Powered Image Generation
                                 </Badge>
-                                <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl/none">
+                                <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl lg:leading-none">
                                     Transform Ideas into
-                                    <span className="block bg-clip-text text-transparent bg-gradient-to-r from-primary via-violet-400 to-purple-500  animate-gradient">
+                                    <span className="block bg-gradient-to-r from-purple-500 via-violet-400 to-purple-500 bg-clip-text text-transparent">
                                         Stunning Visuals
                                     </span>
                                 </h1>
+
                                 <p
                                     className="mx-auto max-w-[700px] text-muted-foreground md:text-xl animate-fade-in-up"
                                     style={{ animationDelay: "0.2s" }}
