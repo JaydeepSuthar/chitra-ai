@@ -1,13 +1,13 @@
 "use client";
 
-import { Button } from "@/components/landing-page/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/landing-page/card";
-import { Badge } from "@/components/landing-page/badge";
+import { Button } from "@/components/utils/landing-page/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/utils/landing-page/card";
+import { Badge } from "@/components/utils/landing-page/badge";
 import { Sparkles, ImageIcon, Type, Smartphone, Download, Palette, Wand2, Brush, Menu, X } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
-import { GeometricBackground } from "@/components/landing-page/geometric-background";
-import { ScrollReveal } from "@/components/landing-page/scroll-reveal";
+import { GeometricBackground } from "@/components/utils/landing-page/geometric-background";
+import { ScrollReveal } from "@/components/utils/landing-page/scroll-reveal";
 import { useState } from "react";
 
 export default function Home() {
