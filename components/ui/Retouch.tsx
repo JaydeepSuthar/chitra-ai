@@ -88,7 +88,7 @@ export default function Retouch() {
                                     <div className="pt-4">
                                         <div className="relative rounded-lg overflow-hidden">
                                             <Image
-                                                src="/placeholder.svg?height=150&width=300"
+                                                src="/chitra-home-square.png?height=150&width=300"
                                                 width={300}
                                                 height={150}
                                                 alt={`${item.title} Example`}

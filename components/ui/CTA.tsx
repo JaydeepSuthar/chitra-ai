@@ -5,7 +5,7 @@ import { ScrollReveal } from "@/components/utils/landing-page/scroll-reveal";
 export default function CTA() {
     return (
         <section className="w-full py-12 md:py-24 lg:py-32 relative overflow-hidden">
-            <div className="absolute inset-0 bg-[url('/placeholder.svg?height=800&width=1200')] opacity-5"></div>
+            <div className="absolute inset-0 bg-[url('/chitra.png')] opacity-5"></div>
             <div className="absolute -inset-[100px] bg-primary/5 animate-morph blur-3xl"></div>
             <div className="container px-4 md:px-6 relative z-10">
                 <ScrollReveal>
