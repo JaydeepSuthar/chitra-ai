@@ -3,13 +3,15 @@
 import { Button } from "@/components/landing-page/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/landing-page/card";
 import { Badge } from "@/components/landing-page/badge";
-import { Sparkles, ImageIcon, Type, Smartphone, Download, Palette, Wand2, Brush } from "lucide-react";
+import { Sparkles, ImageIcon, Type, Smartphone, Download, Palette, Wand2, Brush, Menu, X } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { GeometricBackground } from "@/components/landing-page/geometric-background";
 import { ScrollReveal } from "@/components/landing-page/scroll-reveal";
+import { useState } from "react";
 
 export default function Home() {
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
     const scrollToMobileApp = () => {
         const element = document.getElementById("mobile-app");
         if (element) {
@@ -24,6 +26,7 @@ export default function Home() {
             {/* Header */}
             <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/80 backdrop-blur-xl supports-[backdrop-filter]:bg-background/60">
                 <div className="flex h-16 w-full items-center justify-between px-6">
+                    {/* Logo */}
                     <div className="flex items-center space-x-2">
                         <Link href="/" className="flex items-center space-x-2 group">
                             <div className="animate-pulse-glow">
@@ -33,13 +36,11 @@ export default function Home() {
                         </Link>
                     </div>
 
-                    <nav className="flex items-center space-x-6 text-sm font-medium">
+                    {/* Desktop Nav */}
+                    <nav className="hidden md:flex items-center space-x-6 text-sm font-medium">
                         <Link href="#features" className="transition-all hover:text-primary hover:scale-105">
                             Features
                         </Link>
-                        {/* <Link href="#retouch" className="transition-all hover:text-primary hover:scale-105">
-                            Retouch
-                        </Link> */}
                         <Link href="#how-it-works" className="transition-all hover:text-primary hover:scale-105">
                             How it Works
                         </Link>
@@ -53,7 +54,46 @@ export default function Home() {
                             Delete Me
                         </Link>
                     </nav>
+
+                    {/* Mobile Menu Toggle Button */}
+                    <button
+                        onClick={() => setIsMenuOpen(!isMenuOpen)}
+                        className="md:hidden text-white focus:outline-none"
+                    >
+                        {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+                    </button>
                 </div>
+
+                {/* Mobile Nav Dropdown */}
+                {isMenuOpen && (
+                    <div className="md:hidden px-6 pb-4">
+                        <nav className="flex flex-col space-y-4 text-sm font-medium text-white">
+                            <Link href="#features" onClick={() => setIsMenuOpen(false)} className="hover:text-primary">
+                                Features
+                            </Link>
+                            <Link
+                                href="#how-it-works"
+                                onClick={() => setIsMenuOpen(false)}
+                                className="hover:text-primary"
+                            >
+                                How it Works
+                            </Link>
+                            <Link
+                                href="#mobile-app"
+                                onClick={() => {
+                                    scrollToMobileApp();
+                                    setIsMenuOpen(false);
+                                }}
+                                className="hover:text-primary"
+                            >
+                                Download App
+                            </Link>
+                            <Link href="/delete-me" onClick={() => setIsMenuOpen(false)} className="hover:text-primary">
+                                Delete Me
+                            </Link>
+                        </nav>
+                    </div>
+                )}
             </header>
 
             <main className="flex-1 relative z-20">
@@ -66,6 +106,7 @@ export default function Home() {
                                     <Sparkles className="mr-1 h-3 w-3" />
                                     AI-Powered Image Generation
                                 </Badge>
+
                                 <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl lg:leading-none">
                                     Transform Ideas into
                                     <span className="block bg-gradient-to-r from-purple-500 via-violet-400 to-purple-500 bg-clip-text text-transparent">
@@ -82,23 +123,32 @@ export default function Home() {
                                     starting from scratch or transforming existing images.
                                 </p>
                             </div>
-                            <div className="space-x-4 animate-fade-in-up" style={{ animationDelay: "0.4s" }}>
+
+                            {/* Download Buttons */}
+                            <div
+                                className="flex flex-row justify-center items-center gap-4 animate-fade-in-up"
+                                style={{ animationDelay: "0.4s" }}
+                            >
                                 <Button
                                     size="lg"
-                                    className="h-12 px-8 hover-lift glow-border animate-gradient text-white"
+                                    className="h-12 md:w-52 w-44 px-0 flex justify-center items-center hover-lift glow-border animate-gradient text-white gap-2"
                                 >
-                                    <Download className="mr-2 h-4 w-4" />
-                                    Download for iOS
+                                    <Download className="h-4 w-4" />
+                                    <span className="hidden sm:inline">Download for iOS</span>
+                                    <span className="inline sm:hidden">iOS</span>
                                 </Button>
+
                                 <Button
                                     variant="outline"
                                     size="lg"
-                                    className="h-12 px-8 hover-lift border-primary/20 hover:border-primary"
+                                    className="h-[52px] md:w-52 w-44 px-0 flex justify-center items-center hover-lift border-primary/20 hover:glow-border hover:animate-gradient text-white gap-2"
                                 >
-                                    <Download className="mr-2 h-4 w-4" />
-                                    Download for Android
+                                    <Download className="h-4 w-4" />
+                                    <span className="hidden sm:inline">Download for Android</span>
+                                    <span className="inline sm:hidden">Android</span>
                                 </Button>
                             </div>
+
                             <ScrollReveal delay={600}>
                                 <div className="w-full max-w-5xl mt-16">
                                     <div className="relative rounded-2xl border border-primary/20 bg-card/50 backdrop-blur-3xl p-6 hover-lift shimmer-effect">
