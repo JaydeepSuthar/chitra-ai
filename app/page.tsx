@@ -101,7 +101,7 @@ export default function Home() {
                             </div>
                             <ScrollReveal delay={600}>
                                 <div className="w-full max-w-5xl mt-16">
-                                    <div className="relative rounded-2xl border border-primary/20 bg-card/50 backdrop-blur-sm p-6 hover-lift shimmer-effect">
+                                    <div className="relative rounded-2xl border border-primary/20 bg-card/50 backdrop-blur-3xl p-6 hover-lift shimmer-effect">
                                         <Image
                                             src="/placeholder.svg?height=500&width=900"
                                             width={900}
@@ -137,7 +137,7 @@ export default function Home() {
                         </ScrollReveal>
                         <div className="mx-auto grid max-w-6xl items-start gap-8 py-12 lg:grid-cols-2 lg:gap-12">
                             <ScrollReveal delay={200}>
-                                <Card className="relative overflow-hidden hover-lift glow-border bg-card/50 backdrop-blur-sm border-primary/20">
+                                <Card className="relative overflow-hidden hover-lift glow-border bg-card/50 backdrop-blur-3xl border-primary/20">
                                     <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent"></div>
                                     <CardHeader>
                                         <div className="flex items-center space-x-2">
@@ -189,7 +189,7 @@ export default function Home() {
                             </ScrollReveal>
 
                             <ScrollReveal delay={400}>
-                                <Card className="relative overflow-hidden hover-lift glow-border bg-card/50 backdrop-blur-sm border-primary/20">
+                                <Card className="relative overflow-hidden hover-lift glow-border bg-card/50 backdrop-blur-3xl border-primary/20">
                                     <div className="absolute inset-0 bg-gradient-to-bl from-primary/5 to-transparent"></div>
                                     <CardHeader>
                                         <div className="flex items-center space-x-2">
@@ -306,7 +306,7 @@ export default function Home() {
                                 },
                             ].map((item, index) => (
                                 <ScrollReveal key={index} delay={item.delay}>
-                                    <Card className="relative overflow-hidden hover-lift glow-border bg-card/50 backdrop-blur-sm border-primary/20 h-full">
+                                    <Card className="relative overflow-hidden hover-lift glow-border bg-card/50 backdrop-blur-3xl border-primary/20 h-full">
                                         <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent"></div>
                                         <CardHeader>
                                             <div className="flex items-center space-x-2">
@@ -524,7 +524,7 @@ export default function Home() {
             </main>
 
             {/* Footer */}
-            <footer className="flex flex-col gap-2 sm:flex-row py-8 w-full shrink-0 items-center px-4 md:px-6 border-t border-border/40 bg-card/20 backdrop-blur-sm relative z-20">
+            <footer className="flex flex-col gap-2 sm:flex-row py-8 w-full shrink-0 items-center px-4 md:px-6 border-t border-border/40 bg-card/20 backdrop-blur-3xl relative z-20">
                 <div className="flex items-center space-x-2">
                     <Sparkles className="h-4 w-4 text-primary animate-pulse" />
                     <p className="text-xs text-muted-foreground">© 2024 Chitra AI. All rights reserved.</p>
