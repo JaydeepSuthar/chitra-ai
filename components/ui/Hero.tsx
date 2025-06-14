@@ -59,13 +59,13 @@ export default function Hero() {
 
                     <ScrollReveal delay={600}>
                         <div className="w-full max-w-5xl mt-16">
-                            <div className="relative rounded-2xl border border-primary/20 bg-card/50 backdrop-blur-3xl p-6 hover-lift shimmer-effect">
+                            <div className="relative animate-float rounded-2xl border border-primary/20 bg-card/50 backdrop-blur-3xl p-6 hover-lift shimmer-effect">
                                 <Image
                                     src="/chitra.png?height=800&width=350"
                                     width={900}
                                     height={500}
                                     alt="Chitra AI Interface Preview"
-                                    className="rounded-xl object-cover w-full animate-float"
+                                    className="rounded-xl object-cover w-full "
                                 />
                             </div>
                         </div>
