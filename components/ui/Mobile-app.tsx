@@ -40,18 +40,24 @@ export default function MobileApp() {
                                     </li>
                                 ))}
                             </ul>
-                            <div className="flex flex-col gap-3 min-[400px]:flex-row md:w-full w-64 ">
-                                <Button size="lg" className="h-12 hover-lift glow-border animate-gradient text-white">
-                                    <Download className="mr-2 h-4 w-4" />
-                                    Download for iOS
-                                </Button>
+                            <div className="flex flex-col items-center w-full gap-3 px-4 mt-4">
+                                {/* iOS Button */}
                                 <Button
-                                    variant="outline"
                                     size="lg"
-                                    className="h-[52px] hover-lift border-primary/20 hover:border-primary"
+                                    className="h-12 w-full max-w-xs hover-lift glow-border animate-gradient text-white"
                                 >
                                     <Download className="mr-2 h-4 w-4" />
-                                    Download for Android
+                                    Download for iOS (coming soon)
+                                </Button>
+
+                                {/* Android Button */}
+                                <Button
+                                    size="lg"
+                                    className="h-12 w-full max-w-xs border border-white/10 hover:border-white/30"
+                                    variant="outline"
+                                >
+                                    <Download className="mr-2 h-4 w-4" />
+                                    Download for Android (coming soon)
                                 </Button>
                             </div>
                         </div>

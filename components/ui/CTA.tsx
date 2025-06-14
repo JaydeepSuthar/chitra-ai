@@ -19,18 +19,21 @@ export default function CTA() {
                                 Start your creative journey today.
                             </p>
                         </div>
-                        <div className="flex flex-col gap-3  min-[400px]:flex-row">
-                            <Button size="lg" className="h-12 hover-lift glow-border animate-gradient text-white">
+                        <div className="flex flex-col gap-3 items-center justify-center md:flex-row w-full px-4 mt-4">
+                            <Button
+                                size="lg"
+                                className="h-12 w-full max-w-xs hover-lift glow-border animate-gradient text-white"
+                            >
                                 <Download className="mr-2 h-4 w-4" />
-                                Download for iOS
+                                Download for iOS (coming soon)
                             </Button>
                             <Button
                                 variant="outline"
                                 size="lg"
-                                className="h-[52px] hover-lift border-primary/20 hover:border-primary"
+                                className="h-[52px] w-full max-w-xs hover-lift border-primary/20 hover:border-primary"
                             >
                                 <Download className="mr-2 h-4 w-4" />
-                                Download for Android
+                                Download for Android (coming soon)
                             </Button>
                         </div>
                     </div>

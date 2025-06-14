@@ -14,7 +14,7 @@ export default function Home() {
         <div className="flex flex-col items-center justify-center text-center min-h-screen bg-background text-foreground relative ">
             <GeometricBackground />
             <Header />
-            <main className="flex-1 relative z-20">
+            <main className="flex-1 relative z-20 w-full md:w-auto">
                 <Hero />
                 <Features />
                 <HowItWorks />
