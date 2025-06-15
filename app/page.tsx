@@ -1,10 +1,27 @@
+"use client";
+
+import { GeometricBackground } from "@/components/utils/landing-page/geometric-background";
+import Header from "@/components/ui/Header";
+import Footer from "@/components/ui/Footer";
+import Hero from "@/components/ui/Hero";
+import Features from "@/components/ui/Features";
+import HowItWorks from "@/components/ui/How-it-works";
+import MobileApp from "@/components/ui/Mobile-app";
+import CTA from "@/components/ui/CTA";
+
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center">
-        <h1 className="text-4xl font-mono font-semibold">Chitra AI</h1>
-        <p className="text-2xl font-mono">Turn creative thoughts into images</p>
-      </main>
-    </div>
-  );
+    return (
+        <div className="flex flex-col items-center justify-center text-center min-h-screen bg-background text-foreground relative ">
+            <GeometricBackground />
+            <Header />
+            <main className="flex-1 relative z-20 w-full md:w-auto">
+                <Hero />
+                <Features />
+                <HowItWorks />
+                <MobileApp />
+                <CTA />
+            </main>
+            <Footer />
+        </div>
+    );
 }
