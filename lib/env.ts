@@ -10,6 +10,7 @@ const envSchema = z.object({
   ADMIN_SECRET: z.string(),
   CONTACT_EMAIL: z.email().default('contact@example.com'),
   WEBSITE_URL: z.string().default('https://example.com'),
+  CRON_SECRET: z.string(),
 });
 
 export default envSchema.parse(process.env);

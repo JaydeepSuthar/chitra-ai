@@ -1,48 +1,44 @@
 "use client";
 
 import { useState } from "react";
-import { Button } from "@/components/utils/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/utils/card";
-import { Alert, AlertDescription } from "@/components/utils/alert";
-import { Trash2, LogIn, CheckCircle, AlertTriangle, Shield, User, ArrowBigLeft } from "lucide-react";
-import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-import { app } from "@/lib/firebase";
+import { Button } from "@/components/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/card";
+import { Alert, AlertDescription } from "@/components/alert";
+import { Trash2, LogIn, CheckCircle, AlertTriangle, Shield, User } from "lucide-react";
+
+import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google';
+import { jwtDecode } from "jwt-decode";
 
 type AuthState = "unauthenticated" | "authenticated" | "deleting" | "deleted" | "not-found";
 
-interface Account {
+interface IAccount {
     id: string;
     name: string;
     email: string;
     avatar?: string;
 }
 
+interface IGoogleOAuthData {
+    aud: string;
+    azp: string;
+    email: string;
+    email_verified: boolean;
+    exp: number;
+    family_name: string;
+    given_name: string;
+    iat: number;
+    iss: string;
+    jti: string;
+    name: string;
+    nbf: number;
+    picture: string;
+    sub: string;
+}
+
 export default function DeleteMePage() {
     const [authState, setAuthState] = useState<AuthState>("unauthenticated");
-    const [user, setUser] = useState<Account | null>(null);
+    const [user, setUser] = useState<IAccount | null>(null);
     const [showConfirmation, setShowConfirmation] = useState(false);
-
-    const handleGoogleSignIn = async () => {
-        const auth = getAuth(app);
-        const provider = new GoogleAuthProvider();
-
-        try {
-            const result = await signInWithPopup(auth, provider);
-            const user = result.user;
-
-            const account: Account = {
-                id: user.uid,
-                name: user.displayName || "No Name",
-                email: user.email || "No Email",
-                avatar: user.photoURL || undefined,
-            };
-
-            setUser(account);
-            setAuthState("authenticated");
-        } catch (error) {
-            console.error("Google Sign-in error:", error);
-        }
-    };
 
     const handleDeleteAccount = async () => {
         if (!user) return;
@@ -93,14 +89,30 @@ export default function DeleteMePage() {
                         </div>
 
                         <div className="space-y-4">
-                            <Button
-                                onClick={handleGoogleSignIn}
-                                className="w-full bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white shadow-lg shadow-purple-500/25 transition-all duration-300 hover:shadow-purple-500/40 hover:scale-[1.02]"
-                                size="lg"
-                            >
-                                <LogIn className="mr-3 h-5 w-5" />
-                                Sign in with Google
-                            </Button>
+                            <GoogleLogin
+                                onSuccess={credentialResponse => {
+                                    console.log(credentialResponse);
+                                    if (credentialResponse.credential) {
+                                        console.log(jwtDecode(credentialResponse.credential))
+
+                                        const user = jwtDecode(credentialResponse.credential) as IGoogleOAuthData;
+                                        console.log("user", user);
+
+                                        const account: IAccount = {
+                                            id: user.sub,
+                                            name: user.name,
+                                            email: user.email,
+                                            avatar: user.picture,
+                                        }
+
+                                        setUser(account);
+                                        setAuthState("authenticated");
+                                    }
+                                }}
+                                onError={() => {
+                                    setAuthState("unauthenticated");
+                                }}
+                            />
                         </div>
 
                         <Alert className="border-purple-500/30 bg-gradient-to-r from-purple-500/10 to-purple-600/10 backdrop-blur-sm">
@@ -300,22 +312,24 @@ export default function DeleteMePage() {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900 flex items-center justify-center p-4 relative overflow-hidden">
-            {/* Background decoration */}
-            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-purple-900/20 via-transparent to-transparent"></div>
-            <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-500/5 rounded-full blur-3xl"></div>
-            <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl"></div>
+        <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID ?? ''}>
+            <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900 flex items-center justify-center p-4 relative overflow-hidden">
+                {/* Background decoration */}
+                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-purple-900/20 via-transparent to-transparent" />
+                <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-500/5 rounded-full blur-3xl" />
+                <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl" />
 
-            <Card className="w-full max-w-lg bg-gray-900/80 backdrop-blur-xl border-gray-800/50 shadow-2xl shadow-purple-500/10 relative">
-                <div className="absolute inset-0 bg-gradient-to-r from-purple-500/5 to-blue-500/5 rounded-lg"></div>
-                <CardHeader className="text-center relative z-10 pb-2">
-                    <CardTitle className="text-white text-xl">Account Management</CardTitle>
-                    <CardDescription className="text-gray-400">
-                        Secure account operations and data management
-                    </CardDescription>
-                </CardHeader>
-                <CardContent className="relative z-10 pt-4">{renderContent()}</CardContent>
-            </Card>
-        </div>
+                <Card className="w-full max-w-lg bg-gray-900/80 backdrop-blur-xl border-gray-800/50 shadow-2xl shadow-purple-500/10 relative">
+                    <div className="absolute inset-0 bg-gradient-to-r from-purple-500/5 to-blue-500/5 rounded-lg" />
+                    <CardHeader className="text-center relative z-10 pb-2">
+                        <CardTitle className="text-white text-xl">Account Management</CardTitle>
+                        <CardDescription className="text-gray-400">
+                            Secure account operations and data management
+                        </CardDescription>
+                    </CardHeader>
+                    <CardContent className="relative z-10 pt-4">{renderContent()}</CardContent>
+                </Card>
+            </div>
+        </GoogleOAuthProvider>
     );
 }
