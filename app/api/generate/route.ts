@@ -70,8 +70,19 @@ export async function POST(req: Request) {
     else
       throw new Error("No model selected");
 
+    console.log({ imageResponse });
+
     if (imageResponse === null)
       throw new Error("image response null");
+
+    if (imageResponse?.error) {
+      switch (imageResponse?.error?.code) {
+        case 'parameter_invalid_image':
+          return Response.json({ message: "Invalid image format or dimensions was provided.", data: null, statusCode: 400 }, { status: 400 });
+        default:
+          return Response.json({ message: "Image generation failed.", data: null, statusCode: 400 }, { status: 400 });
+      }
+    }
 
     await addCreditHistory(user.id, -cost, 'IMAGE_GEN');
 

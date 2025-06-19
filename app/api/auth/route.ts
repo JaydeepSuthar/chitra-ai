@@ -3,7 +3,7 @@ import * as schema from "@/db/schema";
 import { auth } from "@/lib/auth";
 import { generateToken } from "@/lib/jwt";
 import { userSchema } from "@/lib/validator";
-import { and, eq } from "drizzle-orm";
+import { and, eq, getTableColumns } from "drizzle-orm";
 
 export async function POST(req: Request) {
     try {
@@ -16,8 +16,10 @@ export async function POST(req: Request) {
                 { status: 422 }
             );
 
+        const { token, deletedAt, updatedAt, createdAt, ...userSelectFields } = getTableColumns(schema.users);
+
         const [isUserExists] = await db
-            .select()
+            .select(userSelectFields)
             .from(schema.users)
             .where(eq(schema.users.email, data.email));
 
@@ -42,7 +44,7 @@ export async function POST(req: Request) {
             );
         }
 
-        const [user] = await db.insert(schema.users).values(data).returning();
+        const [user] = await db.insert(schema.users).values(data).returning(userSelectFields);
 
         const accessToken = generateToken(user);
         const refreshToken = generateToken(user);

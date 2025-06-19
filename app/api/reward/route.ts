@@ -30,7 +30,13 @@ export async function POST(req: Request) {
             );
         }
 
-        const randomCredits = Math.floor(Math.random() * (10 - 3 + 1) + 3);
+        const randomValue = Math.random();
+        let randomCredits;
+
+        if (randomValue < 0.8)
+            randomCredits = Math.floor(Math.random() * (5 - 1 + 1) + 1);
+        else
+            randomCredits = Math.floor(Math.random() * (7 - 5 + 1) + 5);
 
         await db
             .update(schema.users)

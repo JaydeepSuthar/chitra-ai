@@ -6,7 +6,7 @@ export async function POST(req: Request) {
     try {
         const { userId } = await req.json();
 
-        const [user] = await db.select().from(schema.users).where(eq(schema.users.id, userId));
+        const [user] = await db.select().from(schema.users).where(eq(schema.users.socialId, userId));
 
         if (!user) {
             return Response.json({ message: "User not found" }, { status: 404 });
@@ -18,7 +18,7 @@ export async function POST(req: Request) {
             await db
                 .update(schema.users)
                 .set({ isDeleted: true, deletedAt: sql`now()` })
-                .where(eq(schema.users.id, userId));
+                .where(eq(schema.users.socialId, userId));
         }
 
         return Response.json({ message: "User deleted successfully", data: null, statusCode: 200 }, { status: 200 });

@@ -15,8 +15,16 @@ export const IMAGE_STYLES = [
 export const IMAGE_STYLE_PROMPTS = [
   {
     "style": "Ghibli",
-    "prompt": "Generate an image in the whimsical, hand-drawn style of Studio Ghibli. The image should capture the soft colors, gentle lines, and often fantastical or natural themes characteristic of Ghibli films. Focus on creating a sense of warmth, wonder, and atmosphere, similar to movies like 'Spirited Away' or 'My Neighbor Totoro'. Apply this style to the provided input photo."
+    "prompt": "Studio Ghibli art with light colors and warmth. Focus on soft brushstrokes and a cozy atmosphere, featuring enchanting characters and a serene background that evokes a sense of comfort and magic"
   },
+  // {
+  //   "style": "Ghibli",
+  //   "prompt": "Turn this into a Studio Ghibli-style illustration with soft brushstrokes, rich colors, and a hand-painted effect"
+  // },
+  // {
+  //   "style": "Ghibli",
+  //   "prompt": "Generate an image in the whimsical, hand-drawn style of Studio Ghibli. The image should capture the soft colors, gentle lines, and often fantastical or natural themes characteristic of Ghibli films. Focus on creating a sense of warmth, wonder, and atmosphere, similar to movies like 'Spirited Away' or 'My Neighbor Totoro'. Apply this style to the provided input photo."
+  // },
   {
     "style": "Anime",
     "prompt": "Create an image in the vibrant and dynamic style of Japanese anime. Emphasize bold outlines, expressive eyes, and potentially stylized proportions. The color palette can range from bright and energetic to more muted depending on the desired mood. Aim for a visual aesthetic similar to popular anime series. Apply this style to the provided input photo."
@@ -71,7 +79,7 @@ export const IMAGE_TO_IMAGE_COST = 5;
 
 export const IMAGE_GEN_OPTIONS = {
   model: "stable-diffusion-xl-v1-0",
-  negative_prompt: "Disfigured, cartoon, blurry, nude",
+  negative_prompt: "Disfigured, cartoon, blurry, nude, exaggerated features, unnatural expressions",
   steps: 40,
   guidance: 7.5,
   output_format: 'jpeg',
