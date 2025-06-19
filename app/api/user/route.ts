@@ -86,7 +86,7 @@ export async function GET(req: Request) {
             totalCreditsEarn,
             totalCreditsSpend,
             totalAdsWatch: user.noOfAdsWatch,
-            history: history
+            // history: history
         }
 
         return Response.json({ message: 'User details', data: { ...user, ...userCredits }, statusCode: 200 }, { status: 200 });
